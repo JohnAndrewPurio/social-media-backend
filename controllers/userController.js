@@ -1,6 +1,7 @@
 const { connection } = require('mongoose')
 const UserModel = require('../models/user')
 const bcrypt = require('bcrypt')
+const { verify } = require('jsonwebtoken')
 const generatePasswordHash = require('../utils/generatePasswordHash')
 
 const validEmail = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/
@@ -52,6 +53,19 @@ async function storeRefreshToken(username, refreshToken) {
     }
 }
 
+async function validateRefreshToken(refreshToken, secret) {
+    try {
+        const tokenValid = await verify(refreshToken, secret)
+
+        if(!tokenValid) 
+            return { error: 'Token Invalid or Expired' }
+        
+        return tokenValid
+    } catch(error) {
+        return { error: error }
+    }
+}
+
 module.exports = {
-    addNewUser, loginUser, storeRefreshToken
+    addNewUser, loginUser, storeRefreshToken, validateRefreshToken
 }
