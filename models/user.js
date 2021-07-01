@@ -31,6 +31,10 @@ const UserSchema = new Schema({
     following: {
         type: [ SchemaTypes.ObjectId ],
         ref: 'Users'
+    },
+
+    refreshToken: {
+        type: String
     }
 
 }, { timestamps: true })
