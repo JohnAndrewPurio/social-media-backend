@@ -43,6 +43,14 @@ async function loginUser({username, password}) {
     }
 }
 
+async function followUser({follower, following}) {
+    try {
+        
+    } catch (error) {
+        return { error: error }
+    }
+}
+
 async function storeRefreshToken(username, refreshToken) {
     try {
         await UserModel.updateOne({ username: username }, { refreshToken: refreshToken })
@@ -67,5 +75,5 @@ async function validateRefreshToken(refreshToken, secret) {
 }
 
 module.exports = {
-    addNewUser, loginUser, storeRefreshToken, validateRefreshToken
+    addNewUser, followUser, loginUser, storeRefreshToken, validateRefreshToken
 }

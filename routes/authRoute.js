@@ -39,10 +39,9 @@ async function logInPostHandler(request, response) {
     }
 
     const rawData = {
-        email: result.email,
+        username: result.username,
         timestamp: Date.now()
     }
-
 
     const refreshToken = createNewToken(rawData, REFRESH_TOKEN_SECRET, REFRESH_TOKEN_EXPIRY)
     const tokens = {
@@ -85,8 +84,10 @@ async function tokenGetHandler(request, response) {
             return
         }
 
+        console.log(result)
+
         const data = {
-            email: result.email,
+            username: result.username,
             timestamp: Date.now()
         }
 
